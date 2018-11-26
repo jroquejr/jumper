@@ -9,8 +9,6 @@ services:
       - 8080:8080
       - 8081:8081
     command: ["mitmweb", "--mode", "regular"]
-    links: 
-      - torproxy:torproxy
   torproxy:
     image: mattes/rotating-proxy:latest
     volumes: 
