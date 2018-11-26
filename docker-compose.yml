@@ -8,6 +8,15 @@ services:
     ports: 
       - 8080:8080
       - 8081:8081
+    command: ["mitmweb", "--mode", "regular"]
+  tormitmproxy:
+    build:
+      dockerfile: ./config/mitmproxy/Dockerfile
+      context: .
+    tty: true
+    ports: 
+      - 8080:8080
+      - 8081:8081
     command: ["mitmweb", "--mode", "upstream:torproxy:5566"]
     links: 
       - torproxy:torproxy
