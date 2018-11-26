@@ -9,15 +9,6 @@ services:
       - 8080:8080
       - 8081:8081
     command: ["mitmweb", "--mode", "regular"]
-  torproxy:
-    image: mattes/rotating-proxy:latest
-    volumes: 
-      - ./config/tor/tor.conf:/etc/tor/torrc
-    ports: 
-      - 5566:5566
-      - 4444:4444
-    environment: 
-      - tors=4
   tormitmproxy:
     build:
       dockerfile: ./config/mitmproxy/Dockerfile
@@ -29,3 +20,12 @@ services:
     command: ["mitmweb", "--mode", "upstream:torproxy:5566"]
     links: 
       - torproxy:torproxy
+  torproxy:
+    image: mattes/rotating-proxy:latest
+    volumes: 
+      - ./config/tor/tor.conf:/etc/tor/torrc
+    ports: 
+      - 5566:5566
+      - 4444:4444
+    environment: 
+      - tors=4
